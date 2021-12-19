@@ -1,60 +1,48 @@
-import Header from './components/Header';
-import Main from './components/Main';
-import Footer from './components/Footer';
-import PopupWithForm from './components/PopupWithForm';
-import React from 'react';
-import PopupEditProfile from './components/PopupEditProfile';
-import PopupAddCard from './components/PopupAddCard';
-import PopupEditAvatar from './components/PopupEditAvatar'
+import logo from './images/logo.svg'
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-  function handleAddPlaceClick() {
-    setIsAddCardPopupOpen(true);
-  }
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-  function closePopups() {
-    setIsEditProfilePopupOpen(false)
-    setIsAddCardPopupOpen(false)
-    setIsEditAvatarPopupOpen(false)
-  }
-  React.useEffect(() => {
-    function handleCloseEsc(evt) {
-      if (evt.key === "escape") {
-        closePopups();
-      }
-    }
-    document.addEventListener('keydown', handleCloseEsc);
-    // return () => {
-    //   document.removeEventListener('keydown', handleCloseEsc);
-    // }
-  }, [])
   return (
     <body className="page">
-      <Header />
-      <Main handleEditAvatarClick={handleEditAvatarClick} handleEditProfileClick={handleEditProfileClick} handleAddPlaceClick={handleAddPlaceClick}/>
-      <Footer />
-      <PopupEditProfile isOpen={isEditProfilePopupOpen} />
-      <PopupAddCard isOpen={isAddCardPopupOpen} />
-      <PopupEditAvatar isOpen={isEditAvatarPopupOpen} />
-      {/* <section className="popup popup_type_edit" id="#popupEdit">
+      <header className="header">
+        <img src={logo} alt="Логотип Место" className="header__logo" />
+      </header>
+      <main className="content">
+        <section className="profile">
+          <div className="profile__info">
+            <div className="profile__avatar-container">
+              <img src="./images/avatar.jpg" alt="Аватар профиля" className="profile__avatar" />
+              <img src="./images/avatar-edit-icon.svg" alt="Редактировать" className="profile__avatar-edit-ico" />
+            </div>
+            <div className="profile__info-text">
+              <h1 className="profile__name">Жак-Ив Кусто</h1>
+              <p className="profile__occupation">Исследователь океана</p>
+              <button className="profile__edit-button" type="button"></button>
+            </div>
+
+          </div>
+          <button className="profile__add-button" type="button"></button>
+        </section>
+        <section className="pictures">
+          <ul className="pictures__grid">
+
+          </ul>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
+      </footer>
+      <section className="popup popup_type_edit" id="#popupEdit">
         <div className="overlay"></div>
         <div className="popup__container">
           <button className="popup__close-button" type="reset" id="#"></button>
           <h2 className="popup__form-title">Редактировать профиль</h2>
-          <form className="popup__form popup__form_type_edit" name="editProfile" noValidate>
+          <form className="popup__form popup__form_type_edit" name="editProfile" novalidate>
             <div className="popup__field">
-              <input className="popup__input" type="text" name="name" id="name" placeholder="Имя" required minLength="2" maxLength="40" />
+              <input className="popup__input" type="text" name="name" id="name" placeholder="Имя" required minlength="2" maxlength="40" />
               <span className="popup__error" id="name-error"></span>
             </div>
             <div className="popup__field">
-              <input className="popup__input" type="text" name="about" id="occupation" placeholder="Подпись" required minLength="2" maxLength="200" />
+              <input className="popup__input" type="text" name="about" id="occupation" placeholder="Подпись" required minlength="2" maxlength="200" />
               <span className="popup__error" id="occupation-error"></span>
             </div>
             <button className="popup__form-submit-button" type="submit" id="#popupEditSubmit">Сохранить</button>
@@ -66,9 +54,9 @@ function App() {
         <div className="popup__container">
           <button className="popup__close-button" type="reset"></button>
           <h2 className="popup__form-title">Новое место</h2>
-          <form className="popup__form popup__form_type_add" name="addProfile" noValidate>
+          <form className="popup__form popup__form_type_add" name="addProfile" novalidate>
             <div className="popup__field">
-              <input className="popup__input" type="text" name="name" id="title" placeholder="Название" required minLength="2" maxLength="30" />
+              <input className="popup__input" type="text" name="name" id="title" placeholder="Название" required minlength="2" maxlength="30" />
               <span className="popup__error" id="title-error"></span>
             </div>
             <div className="popup__field">
@@ -96,7 +84,7 @@ function App() {
         <div className="popup__container">
           <button className="popup__close-button" type="reset" id="#x"></button>
           <h2 className="popup__form-title">Обновить аватар</h2>
-          <form className="popup__form popup__form_type_avatar" name="editAvatar" noValidate>
+          <form className="popup__form popup__form_type_avatar" name="editAvatar" novalidate>
             <div className="popup__field">
               <input className="popup__input" type="url" name="avatar" id="avatar" placeholder="Ссылка на аватар" required />
               <span className="popup__error" id="avatar-error"></span>
@@ -110,11 +98,11 @@ function App() {
         <div className="popup__container">
           <button className="popup__close-button" type="reset" id="#y"></button>
           <h2 className="popup__form-title">Вы уверены?</h2>
-          <form className="popup__form popup__form_type_delete" name="deleteCard" noValidate>
+          <form className="popup__form popup__form_type_delete" name="deleteCard" novalidate>
             <button className="popup__form-submit-button" type="submit" id="#popupDeleteSubmit">Да</button>
           </form>
         </div>
-      </section> */}
+      </section>
       <template id="pictureCard">
         <li className="pictures__item">
           <img src="?" alt="" className="pictures__image" />
