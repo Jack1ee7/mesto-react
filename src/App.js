@@ -6,6 +6,9 @@ import React from 'react';
 import PopupEditProfile from './components/PopupEditProfile';
 import PopupAddCard from './components/PopupAddCard';
 import PopupEditAvatar from './components/PopupEditAvatar'
+import Api from './components/Api';
+import Card from './components/Card';
+import ImagePopup from './components/ImagePopup';
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
