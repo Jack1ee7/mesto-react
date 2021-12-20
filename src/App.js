@@ -3,17 +3,18 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import PopupWithForm from "./components/PopupWithForm";
 import React from "react";
-import PopupEditProfile from "./components/PopupEditProfile";
-import PopupAddCard from "./components/PopupAddCard";
-import PopupEditAvatar from "./components/PopupEditAvatar";
 import api from "./utils/Api";
-import Card from "./components/Card";
 import ImagePopup from "./components/ImagePopup";
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
   const [isAddPlacePopupOpen, setIsAddCardPopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({name:'', link:''});
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({
+    name: "",
+    link: "",
+  });
   const [userName, setUserName] = React.useState({});
   const [userDescription, setUserDescription] = React.useState({});
   const [userAvatar, setUserAvatar] = React.useState({});
@@ -39,7 +40,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard({name:'', link:''});
+    setSelectedCard({ name: "", link: "" });
   }
 
   React.useEffect(() => {
@@ -59,17 +60,14 @@ function App() {
     api
       .getAllData()
       .then(([userData, cardList]) => {
+        //profile
         const data = userData;
         setUserName(data.name);
         setUserAvatar(data.avatar);
         setUserDescription(data.about);
-
-        // userInfo.setUserInfo(userData);
-        // userInfo.setUserAvatar(userData);
+        //cards
         cardList.reverse();
         setCard(cardList);
-        console.log(cardList);
-        // cardsSection.renderCard(cardList);
       })
       .catch((err) => {
         console.log(`Ошибка ${err}`);
@@ -90,19 +88,54 @@ function App() {
         onCardClick={handleCardClick}
       />
       <Footer />
-      <PopupEditProfile
+      <PopupWithForm 
+        name={'edit'}
+        title={'Редактировать профиль'}
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      />
-      <PopupAddCard isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-      <PopupEditAvatar
+        onClose={closeAllPopups}>
+        <form className="popup__form popup__form_type_edit" name="editProfile" noValidate>
+          <div className="popup__field">
+            <input className="popup__input" type="text" name="name" id="name" placeholder="Имя" required minLength="2" maxLength="40" />
+            <span className="popup__error" id="name-error"></span>
+          </div>
+          <div className="popup__field">
+            <input className="popup__input" type="text" name="about" id="occupation" placeholder="Подпись" required minLength="2" maxLength="200" />
+            <span className="popup__error" id="occupation-error"></span>
+          </div>
+          <button className="popup__form-submit-button" type="submit" id="#popupEditSubmit">Сохранить</button>
+        </form>
+      </PopupWithForm>
+      <PopupWithForm 
+        name={'avatar'}
+        title={'Обновить аватар'}
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      />
-      <ImagePopup 
-      card={selectedCard}
-      onClose={closeAllPopups} 
-      />
+        onClose={closeAllPopups}>
+        <form className="popup__form popup__form_type_avatar" name="editAvatar" noValidate>
+          <div className="popup__field">
+            <input className="popup__input" type="url" name="avatar" id="avatar" placeholder="Ссылка на аватар" required />
+            <span className="popup__error" id="avatar-error"></span>
+          </div>
+          <button className="popup__form-submit-button" type="submit" id="#popupAvatarSubmit">Сохранить</button>
+        </form>
+      </PopupWithForm>
+      <PopupWithForm 
+        name={'add'}
+        title={'Новое место'}
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}>
+        <form className="popup__form popup__form_type_add" name="addProfile" noValidate>
+          <div className="popup__field">
+            <input className="popup__input" type="text" name="name" id="title" placeholder="Название" required minLength="2" maxLength="30" />
+            <span className="popup__error" id="title-error"></span>
+          </div>
+          <div className="popup__field">
+            <input className="popup__input" type="url" name="link" id="link" placeholder="Ссылка на картинку" required />
+            <span className="popup__error" id="link-error"></span>
+          </div>
+          <button className="popup__form-submit-button" type="submit" id="#popupAddSubmit">Создать</button>
+        </form>
+      </PopupWithForm>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }
