@@ -1,8 +1,8 @@
 import PopupWithForm from "./PopupWithForm";
 
-function PopupAddCard({ isOpen }) {
+function PopupAddCard({ isOpen, onClose }) {
     return (
-        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isOpen}>
+        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isOpen} onClose={onClose}>
             <form className="popup__form popup__form_type_avatar" name="editAvatar" noValidate>
                 <div className="popup__field">
                     <input className="popup__input" type="url" name="avatar" id="avatar" placeholder="Ссылка на аватар" required />
