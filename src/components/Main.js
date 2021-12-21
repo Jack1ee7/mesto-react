@@ -1,18 +1,38 @@
-// import avatar from '../images/avatar.jpg'
+import React from "react";
 import avatarEditIcon from "../images/avatar-edit-icon.svg";
 import Card from "./Card";
+import api from "../utils/Api";
 
 function Main({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
-  userAvatar,
-  userName,
-  userDescription,
-  cards,
-  onCardClick,
-  onClose
+  onCardClick
 }) {
+
+  const [userName, setUserName] = React.useState({});
+  const [userDescription, setUserDescription] = React.useState({});
+  const [userAvatar, setUserAvatar] = React.useState({});
+  const [cards, setCard] = React.useState([]);
+
+  //get data from server
+  React.useEffect(() => {
+    api
+      .getAllData()
+      .then(([userData, cardList]) => {
+        //profile
+        setUserName(userData.name);
+        setUserAvatar(userData.avatar);
+        setUserDescription(userData.about);
+        //cards
+        cardList.reverse();
+        setCard(cardList);
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
+  }, []);
+
   return (
     <main className="content">
       <section className="profile">
@@ -53,7 +73,6 @@ function Main({
             key={card._id}
             onCardClick={onCardClick}
             card={card}
-            onClose={onClose}
             />
           ))}
         </ul>
