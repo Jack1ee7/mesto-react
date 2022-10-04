@@ -3,16 +3,10 @@ import avatarEditIcon from "../images/avatar-edit-icon.svg";
 import Card from "./Card";
 import api from "../utils/Api";
 
-function Main({
-  onEditAvatar,
-  onEditProfile,
-  onAddPlace,
-  onCardClick
-}) {
-
-  const [userName, setUserName] = React.useState({});
-  const [userDescription, setUserDescription] = React.useState({});
-  const [userAvatar, setUserAvatar] = React.useState({});
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
+  const [userName, setUserName] = React.useState([]);
+  const [userDescription, setUserDescription] = React.useState([]);
+  const [userAvatar, setUserAvatar] = React.useState([]);
   const [cards, setCard] = React.useState([]);
 
   //get data from server
@@ -69,11 +63,7 @@ function Main({
       <section className="pictures">
         <ul className="pictures__grid">
           {cards.map((card) => (
-            <Card 
-            key={card._id}
-            onCardClick={onCardClick}
-            card={card}
-            />
+            <Card key={card._id} onCardClick={onCardClick} card={card} />
           ))}
         </ul>
       </section>
