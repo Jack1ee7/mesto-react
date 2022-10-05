@@ -1,9 +1,8 @@
-function PopupWithForm({ name, title, isOpen, onClose, children }) {
+function PopupWithForm({ name, title, isOpen, onClose, buttonText, children }) {
   return (
     <section
-      className={`popup popup_type_${name} ${
-        isOpen ? "popup_status_opened" : ""
-      }`}
+      className={`popup popup_type_${name} ${isOpen ? "popup_status_opened" : ""
+        }`}
       id="#popupEdit"
     >
       <div className="overlay" onClick={onClose}></div>
@@ -15,7 +14,20 @@ function PopupWithForm({ name, title, isOpen, onClose, children }) {
           onClick={onClose}
         ></button>
         <h2 className="popup__form-title">{title}</h2>
-        {children}
+        <form
+          className={`popup__form popup__form_type_${name}`}
+          name={`${name}`}
+          noValidate
+        >
+          {children}
+          <button
+            className="popup__form-submit-button"
+            type="submit"
+            id={`#${name}PopupSubmit`}
+          >
+            {`${buttonText}`}
+          </button>
+        </form>
       </div>
     </section>
   );

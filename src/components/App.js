@@ -55,121 +55,94 @@ function App() {
         title={"Редактировать профиль"}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText={"Сохранить"}
       >
-        <form
+        {/* <form
           className="popup__form popup__form_type_edit"
           name="editProfile"
           noValidate
-        >
-          <div className="popup__field">
-            <input
-              className="popup__input"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Имя"
-              required
-              minLength="2"
-              maxLength="40"
-            />
-            <span className="popup__error" id="name-error"></span>
-          </div>
-          <div className="popup__field">
-            <input
-              className="popup__input"
-              type="text"
-              name="about"
-              id="occupation"
-              placeholder="Подпись"
-              required
-              minLength="2"
-              maxLength="200"
-            />
-            <span className="popup__error" id="occupation-error"></span>
-          </div>
-          <button
-            className="popup__form-submit-button"
-            type="submit"
-            id="#popupEditSubmit"
-          >
-            Сохранить
-          </button>
-        </form>
+        > */}
+        <div className="popup__field">
+          <input
+            className="popup__input"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Имя"
+            required
+            minLength="2"
+            maxLength="40"
+          />
+          <span className="popup__error" id="name-error"></span>
+        </div>
+        <div className="popup__field">
+          <input
+            className="popup__input"
+            type="text"
+            name="about"
+            id="occupation"
+            placeholder="Подпись"
+            required
+            minLength="2"
+            maxLength="200"
+          />
+          <span className="popup__error" id="occupation-error"></span>
+        </div>
+
       </PopupWithForm>
       <PopupWithForm
         name={"avatar"}
         title={"Обновить аватар"}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText={"Сохранить"}
       >
-        <form
-          className="popup__form popup__form_type_avatar"
-          name="editAvatar"
-          noValidate
-        >
-          <div className="popup__field">
-            <input
-              className="popup__input"
-              type="url"
-              name="avatar"
-              id="avatar"
-              placeholder="Ссылка на аватар"
-              required
-            />
-            <span className="popup__error" id="avatar-error"></span>
-          </div>
-          <button
-            className="popup__form-submit-button"
-            type="submit"
-            id="#popupAvatarSubmit"
-          >
-            Сохранить
-          </button>
-        </form>
+
+        <div className="popup__field">
+          <input
+            className="popup__input"
+            type="url"
+            name="avatar"
+            id="avatar"
+            placeholder="Ссылка на аватар"
+            required
+          />
+          <span className="popup__error" id="avatar-error"></span>
+        </div>
+
       </PopupWithForm>
       <PopupWithForm
         name={"add"}
         title={"Новое место"}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText={"Создать"}
       >
-        <form
-          className="popup__form popup__form_type_add"
-          name="addProfile"
-          noValidate
-        >
-          <div className="popup__field">
-            <input
-              className="popup__input"
-              type="text"
-              name="name"
-              id="title"
-              placeholder="Название"
-              required
-              minLength="2"
-              maxLength="30"
-            />
-            <span className="popup__error" id="title-error"></span>
-          </div>
-          <div className="popup__field">
-            <input
-              className="popup__input"
-              type="url"
-              name="link"
-              id="link"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span className="popup__error" id="link-error"></span>
-          </div>
-          <button
-            className="popup__form-submit-button"
-            type="submit"
-            id="#popupAddSubmit"
-          >
-            Создать
-          </button>
-        </form>
+
+        <div className="popup__field">
+          <input
+            className="popup__input"
+            type="text"
+            name="name"
+            id="title"
+            placeholder="Название"
+            required
+            minLength="2"
+            maxLength="30"
+          />
+          <span className="popup__error" id="title-error"></span>
+        </div>
+        <div className="popup__field">
+          <input
+            className="popup__input"
+            type="url"
+            name="link"
+            id="link"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span className="popup__error" id="link-error"></span>
+        </div>
       </PopupWithForm>
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
