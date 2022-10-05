@@ -1,16 +1,16 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import avatarEditIcon from "../images/avatar-edit-icon.svg";
 import Card from "./Card";
 import api from "../utils/Api";
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState([]);
-  const [userDescription, setUserDescription] = React.useState([]);
-  const [userAvatar, setUserAvatar] = React.useState([]);
-  const [cards, setCard] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCard] = useState([]);
 
   //get data from server
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getAllData()
       .then(([userData, cardList]) => {

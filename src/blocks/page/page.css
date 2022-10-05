@@ -2,6 +2,7 @@
   background: #000000;
   /* max-width: 1280px; */
   min-width: 320px; /* 302px */
+  min-height: 100vh;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

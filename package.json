@@ -2,11 +2,7 @@
   "name": "mesto-react",
   "version": "0.1.0",
   "description": "\"Место\" - это однастраничный сайт адаптивный для различных размеров экранов. Реализована возможность изменения имени и описания, открытие и закрытие формы.",
-  "homepage": "https://github.com/Jack1ee7/mesto-react",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jack1ee7/mesto-react.git"
-  },
+  "homepage": "https://jack1ee7.github.io/mesto-react/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
