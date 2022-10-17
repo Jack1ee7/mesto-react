@@ -1,7 +1,38 @@
-function Card({ onCardClick, card }) {
+import { useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+
+function Card({ onCardClick, onCardLike, onCardDelete, card }) {
+
+  const currentUser = useContext(CurrentUserContext);
+
+  // Определяем, являемся ли мы владельцем текущей карточки
+  const isOwn = card.owner._id === currentUser._id;
+  // Создаём переменную, которую после зададим в `className` для кнопки удаления
+  const cardDeleteButtonClassName = `pictures__delete-button ${
+    isOwn ? "pictures__delete-button_status_visible" : ""
+  }`;
+
+  // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+  let isLiked = card.likes.some((i) => i._id === currentUser._id);
+  // console.log(card)
+  // Создаём переменную, которую после зададим в `className` для кнопки лайка
+  const cardLikeButtonClassName = `pictures__like-button ${
+    isLiked ? "pictures__like-button_status_active" : ""
+  }`;
+
   function handleCardClick() {
     onCardClick(card);
   }
+
+  function handleCardDelete() {
+    onCardDelete(card);
+  }
+
+  function handleCardLike() {
+    onCardLike(card);
+  }
+
   return (
     <li className="pictures__item">
       <img
@@ -10,11 +41,15 @@ function Card({ onCardClick, card }) {
         className="pictures__image"
         onClick={handleCardClick}
       />
-      <button className="pictures__delete-button" type="button"></button>
+      <button className={cardDeleteButtonClassName} type="button" onClick={handleCardDelete}></button>
       <div className="pictures__title-container">
         <h3 className="pictures__title">{card.name}</h3>
         <div className="pictures__like-container">
-          <button className="pictures__like-button"></button>
+          <button
+            className={cardLikeButtonClassName}
+            type="button"
+            onClick={handleCardLike}
+          ></button>
           <p className="pictures__like-counter">{card.likes.length}</p>
         </div>
       </div>

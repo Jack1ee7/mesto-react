@@ -31,11 +31,11 @@ class Api {
     })
   }
 
-  getAllData() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()])
-  }
+  // getAllData() {
+  //   return Promise.all([this.getUserInfo(), this.getInitialCards()])
+  // }
 
-  sendProfileInfo(data) {
+  setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -49,7 +49,7 @@ class Api {
     })
   }
 
-  sendAvatar(data) {
+  setAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -94,6 +94,14 @@ class Api {
     .then((res) => {
       return this._getResponseData(res)
     })
+  }
+  //like button toggle
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return this.addLike(cardId);
+    } else {
+      return this.removeLike(cardId);
+    }
   }
 
   deleteCard(cardId) {
