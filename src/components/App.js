@@ -22,27 +22,32 @@ function App() {
   });
   const [cards, setCards] = useState([]);
 
-  //-----------------Card section----------------//
-
-  //get cards data from server
+  //getting user and cards data from server
   useEffect(() => {
     api
-      .getInitialCards()
-      .then((cardsList) => {
-        setCards(cardsList);
+      .getAllData()
+      .then(([userData, cardList]) => {
+        //profile
+        setCurrentUser(userData);
+        //cards
+        setCards(cardList);
       })
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       });
   }, []);
 
+  //-----------------Card section----------------//
+
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
   }
 
   function handleCardLike(card) {
@@ -59,38 +64,36 @@ function App() {
   //---------------Add card-----------------//
 
   function handleAddPlaceSubmit(data) {
-    api.sendNewCard(data).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    })
-    .catch((err) => {
-      console.log(`Ошибка ${err}`);
-    })
-  }
-
-  //-----------------User data section----------------//
-
-  // getting current user info
-  useEffect(() => {
     api
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
+      .sendNewCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(`Ошибка ${err}`);
       });
-  }, []);
+  }
+
+  //-----------------User data section----------------//
 
   // name/description setter
   function handleUpdateUser(userData) {
-    api.setUserInfo(userData).then((data) => setCurrentUser(data));
-    closeAllPopups();
+    api
+      .setUserInfo(userData)
+      .then((data) => setCurrentUser(data), closeAllPopups())
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
   }
   // avatar setter
   function handleUpdateAvatar(userData) {
-    api.setAvatar(userData).then((data) => setCurrentUser(data));
-    closeAllPopups();
+    api
+      .setAvatar(userData)
+      .then((data) => setCurrentUser(data), closeAllPopups())
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
   }
 
   //-----------------Popups section----------------//
@@ -123,7 +126,7 @@ function App() {
   //   })
   //   setIsDeleteCardPopupOpen(true);
   // }
-  
+
   //close all popups
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);

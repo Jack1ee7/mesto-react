@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-
 function Card({ onCardClick, onCardLike, onCardDelete, card }) {
-
   const currentUser = useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
@@ -14,8 +12,7 @@ function Card({ onCardClick, onCardLike, onCardDelete, card }) {
   }`;
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-  let isLiked = card.likes.some((i) => i._id === currentUser._id);
-  // console.log(card)
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `pictures__like-button ${
     isLiked ? "pictures__like-button_status_active" : ""
@@ -34,14 +31,18 @@ function Card({ onCardClick, onCardLike, onCardDelete, card }) {
   }
 
   return (
-    <li className="pictures__item">
+    <>
       <img
         src={card.link}
         alt={card.name}
         className="pictures__image"
         onClick={handleCardClick}
       />
-      <button className={cardDeleteButtonClassName} type="button" onClick={handleCardDelete}></button>
+      <button
+        className={cardDeleteButtonClassName}
+        type="button"
+        onClick={handleCardDelete}
+      ></button>
       <div className="pictures__title-container">
         <h3 className="pictures__title">{card.name}</h3>
         <div className="pictures__like-container">
@@ -53,7 +54,7 @@ function Card({ onCardClick, onCardLike, onCardDelete, card }) {
           <p className="pictures__like-counter">{card.likes.length}</p>
         </div>
       </div>
-    </li>
+    </>
   );
 }
 export default Card;

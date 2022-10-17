@@ -3,7 +3,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-    
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -15,7 +14,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]); 
+  }, [currentUser, isOpen]);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -69,7 +68,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           placeholder="Подпись"
           required
           minLength="2"
-          maxLength="200"    
+          maxLength="200"
           value={description || ""}
           onChange={handleDescriptionChange}
         />

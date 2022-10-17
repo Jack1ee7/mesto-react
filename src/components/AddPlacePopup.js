@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
@@ -19,9 +19,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name: e.target.name.value,
       link: e.target.link.value,
     });
+  }
+
+  //clean input fields after closing/before opening popup
+  useEffect(() => {
     setName("");
     setLink("");
-  }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name={"add"}

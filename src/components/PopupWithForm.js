@@ -1,8 +1,17 @@
-function PopupWithForm({ name, title, isOpen, onClose, buttonText, onSubmit, children }) {
+function PopupWithForm({
+  name,
+  title,
+  isOpen,
+  onClose,
+  buttonText,
+  onSubmit,
+  children,
+}) {
   return (
     <section
-      className={`popup popup_type_${name} ${isOpen ? "popup_status_opened" : ""
-        }`}
+      className={`popup popup_type_${name} ${
+        isOpen ? "popup_status_opened" : ""
+      }`}
       id="#popupEdit"
     >
       <div className="overlay" onClick={onClose}></div>

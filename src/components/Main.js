@@ -3,9 +3,29 @@ import avatarEditIcon from "../images/avatar-edit-icon.svg";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards }) {
-
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  cards,
+}) {
   const currentUser = useContext(CurrentUserContext);
+
+  //creating card elements from data
+  const cardsElements = cards.map((card) => (
+    <li className="pictures__item" key={card._id}>
+      <Card
+        key={card._id}
+        onCardClick={onCardClick}
+        onCardLike={onCardLike}
+        onCardDelete={onCardDelete}
+        card={card}
+      />
+    </li>
+  ));
 
   return (
     <main className="content">
@@ -41,11 +61,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike
         ></button>
       </section>
       <section className="pictures">
-        <ul className="pictures__grid">
-          {cards.map((card) => (
-            <Card key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} card={card} />
-          ))}
-        </ul>
+        <ul className="pictures__grid">{cardsElements}</ul>
       </section>
     </main>
   );

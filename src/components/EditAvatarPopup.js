@@ -2,7 +2,6 @@ import { useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
-
   const avatarRef = useRef();
 
   function handleSubmit(e) {
