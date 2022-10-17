@@ -5,6 +5,7 @@
   object-fit: cover;
   position: relative;
   transition: opacity .3s ease;
+  cursor: pointer;
 }
 .profile__avatar:hover {
   opacity: 0.2;
