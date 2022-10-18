@@ -56,9 +56,16 @@ function App() {
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
     //установка стейта происходит в App
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(`Ошибка ${err}`);
+      });
   }
 
   //---------------Add card-----------------//
