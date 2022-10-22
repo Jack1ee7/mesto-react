@@ -9,7 +9,7 @@ function Main({
   onAddPlace,
   onCardClick,
   onCardLike,
-  onCardDelete,
+  onCardDeleteClick,
   cards,
 }) {
   const currentUser = useContext(CurrentUserContext);
@@ -21,7 +21,7 @@ function Main({
         key={card._id}
         onCardClick={onCardClick}
         onCardLike={onCardLike}
-        onCardDelete={onCardDelete}
+        onCardDeleteClick={onCardDeleteClick}
         card={card}
       />
     </li>

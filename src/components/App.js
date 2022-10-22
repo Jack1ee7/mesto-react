@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import DeleteCardPopup from "./DeleteCardPopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 
@@ -14,11 +15,12 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddCardPopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  //const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false); //future feature
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false); //future feature
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({
     name: "",
     link: "",
+    _id: "",
   });
   const [cards, setCards] = useState([]);
 
@@ -43,7 +45,8 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c._id !== card._id))
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(`Ошибка ${err}`);
@@ -126,20 +129,21 @@ function App() {
     setIsImagePopupOpen(true);
   }
   // open delete card popup
-  // function handleDeleteClick(card) {         //future feature
-  //   setSelectedCard({
-  //     name: card.name,
-  //     link: card.link,
-  //   })
-  //   setIsDeleteCardPopupOpen(true);
-  // }
+  function handleCardDeleteClick(card) {         //future feature
+    setSelectedCard({
+      name: card.name,
+      link: card.link,
+      _id: card._id,
+    })
+    setIsDeleteCardPopupOpen(true);
+  }
 
   //close all popups
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    // setIsDeleteCardPopupOpen(false); //future feature
+    setIsDeleteCardPopupOpen(false); //future feature
     setIsImagePopupOpen(false);
     setSelectedCard({ name: "", link: "" });
   }
@@ -153,9 +157,8 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
-          //onDeleteClick={handleCardDeleteClick} //future feature
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDeleteClick={handleCardDeleteClick} //future feature
           cards={cards}
         />
         <Footer />
@@ -173,6 +176,12 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+        />
+        <DeleteCardPopup
+          isOpen={isDeleteCardPopupOpen}
+          onClose={closeAllPopups}
+          onDelete={handleCardDelete}
+          card={selectedCard}
         />
         <ImagePopup
           isOpen={isImagePopupOpen}
